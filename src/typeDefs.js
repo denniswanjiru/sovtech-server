@@ -8,8 +8,18 @@ export default gql`
     password: String
   }
 
+  type Joke {
+    id: String,
+    url: String,
+    value: String!,
+    icon_url: String,
+    categories: [String!]
+  }
+
   type Query {
-    users: [User!]!
+    joke(cat: String!): Joke!,
+    users: [User!]!,
+    categories: [String!]!
   }
 
   type Mutation {
