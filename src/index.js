@@ -5,9 +5,10 @@ import { ApolloServer } from 'apollo-server-express';
 import typeDefs from './typeDefs';
 import resolvers from './resolvers/index.js';
 
-mongoose.connect('mongodb://localhost:27017/graph', { useNewUrlParser: true });
+mongoose.connect(process.env.DATABASE_URL, { useNewUrlParser: true });
 
 const app = express();
+const port = process.env.PORT;
 
 const server = new ApolloServer({
   typeDefs,
@@ -16,6 +17,6 @@ const server = new ApolloServer({
 
 server.applyMiddleware({ app });
 
-app.listen({ port: 4000 }, () => {
-  console.log(`Server running at localhost:4000${server.graphqlPath}`);
+app.listen({ port }, () => {
+  console.log(`Server running at localhost:${port}${server.graphqlPath}`);
 });
