@@ -3,6 +3,10 @@ import bcrypt from 'bcrypt';
 import { errorGenerator } from './helpers';
 
 export default class Validator {
+  static testMid(res, req, next) {
+    console.log(req)
+  }
+
   static required(fields) {
     const [err] = Object.entries(fields)
       .map(([key, val]) => {
