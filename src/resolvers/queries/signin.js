@@ -18,7 +18,6 @@ export default {
 
         const user = await User.findOne({ email }).exec();
 
-        console.log(user)
         const token = await jwt.sign({
           name: user.name,
           email: user.email,
@@ -35,7 +34,6 @@ export default {
           }
         }
       } catch (error) {
-        console.log(error)
         return errorGenerator(null, 'Something went wrong!');
       }
     }
