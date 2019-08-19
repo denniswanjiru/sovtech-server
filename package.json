@@ -6,6 +6,9 @@
   "scripts": {
     "start": "nodemon --exec babel-node ./src/index.js"
   },
+  "engines": {
+    "node": "11.x"
+  },
   "keywords": [],
   "author": "",
   "license": "ISC",
