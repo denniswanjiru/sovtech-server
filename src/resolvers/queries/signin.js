@@ -10,15 +10,15 @@ export default {
       try {
         const { password, email } = args;
 
-        const required = Validator.required(args);
-        if (required && required.error) return { ...required }
+        const required = await Validator.required(args);
+        if (required && required.error) return { error: { ...required.error } }
 
-        const correctCreds = Validator.correctCreds(email, password);
-        if (correctCreds && correctCreds.error) return { ...correctCreds }
+        const correctCreds = await Validator.correctCreds(email, password);
+        if (correctCreds && correctCreds.error) return { error: { ...correctCreds.error } }
 
         const user = await User.findOne({ email }).exec();
 
-        const token = await jwt.sign({
+        const token = await user && jwt.sign({
           name: user.name,
           email: user.email,
           userId: user._id

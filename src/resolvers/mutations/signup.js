@@ -13,9 +13,10 @@ export default {
         const passMatch = await Validator.passwordMatch(password, confirmPassword);
         const validEmail = await Validator.uniqEmail(email);
 
-        if (required && required.error) return { ...required }
-        if (passMatch && passMatch.error) return { ...passMatch.error }
-        if (validEmail && validEmail.error) return { ...validEmail.error }
+
+        if (required && required.error) return { error: { ...required.error } }
+        if (passMatch && passMatch.error) return { error: { ...passMatch.error }}
+        if (validEmail && validEmail.error) return { error: { ...validEmail.error } }
 
         const hash = await bcrypt.hash(password, 10);
         const user = await new User({

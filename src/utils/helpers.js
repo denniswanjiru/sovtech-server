@@ -1,6 +1,9 @@
 import jwt from 'jsonwebtoken';
 
-export const errorGenerator = (field = null, message) => ({ error: { field, message  } });
+export const errorGenerator = (field = null, message) => {
+  console.log(message);
+  return { error: { field, message  } }
+};
 
 export const getUser = (token) => {
   let currentUserToken;

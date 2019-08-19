@@ -3,10 +3,6 @@ import bcrypt from 'bcrypt';
 import { errorGenerator } from './helpers';
 
 export default class Validator {
-  static testMid(res, req, next) {
-    console.log(req)
-  }
-
   static required(fields) {
     const [err] = Object.entries(fields)
       .map(([key, val]) => {
@@ -43,6 +39,10 @@ export default class Validator {
 
   static async correctCreds(email, password) {
     try {
+      if (!/^[a-z0-9][a-z0-9-_\.]+@([a-z]|[a-z0-9]?[a-z0-9-]+[a-z0-9])\.[a-z0-9]{2,10}(?:\.[a-z]{2,10})?$/.test(email)) {
+        return errorGenerator('email', 'Please enter a valid email');
+      };
+
       const user = await User.find({ email: email }).exec();
       if (user.length < 1) {
         return errorGenerator('email', "Email or password do not match");
